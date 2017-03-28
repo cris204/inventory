@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var pg = require('pg');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -21,6 +22,9 @@ var config = {
 };
 
 var app = express();
+
+var client = new pg.Client(config);
+
 
 
 
@@ -49,9 +53,27 @@ app.use(function(req, res, next) {
 });
 
 
-inventory.get("/",function(req,res)){
+purchases.get("/",function(req,res){
 
-}
+  client.connect(function (err) {
+    if (err) throw err;
+
+  //  client.query('SELECT * FROM "inventory" INNNER JOIN "user" ON "user"."user_Id"="inventory"."User_id" ' , function (err, result) {
+   client.query('UPDATE inventory SET "amount"="amount"+1  RETURNING "amount" ' , function (err, result) {
+      if (err) throw err;
+
+
+      console.log(result);
+
+
+      client.end(function (err) {
+        if (err) throw err;
+      });
+    });
+
+  });
+
+})
 
 // error handler
 app.use(function(err, req, res, next) {
