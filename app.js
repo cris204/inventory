@@ -10,7 +10,19 @@ var users = require('./routes/users');
 var inventory = require('./routes/inventory');
 var purchases = require('./routes/purchases');
 
+var config = {
+  user: 'postgres', //env var: PGUSER
+  database: 'Inventory', //env var: PGDATABASE
+  password: 'cris0717', //env var: PGPASSWORD
+  host: 'localhost', // Server hosting the postgres database
+  port: 5432, //env var: PGPORT
+  max: 10, // max number of clients in the pool
+  idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
+};
+
 var app = express();
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,6 +47,11 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
+
+inventory.get("/",function(req,res)){
+
+}
 
 // error handler
 app.use(function(err, req, res, next) {
