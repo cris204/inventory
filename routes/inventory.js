@@ -45,7 +45,7 @@ router.get('/:user_id?', function(req, res, next) {
         });
       }
       else {
-        client.query('SELECT * FROM inventory WHERE user_id = $1', [user_id], function (err, result){
+        client.query('SELECT * FROM inventory WHERE user_id = $1', [id], function (err, result){
         if (err){
           return console.error('error runnning query', err);
         }

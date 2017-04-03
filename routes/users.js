@@ -25,7 +25,7 @@ var client = new pg.Client(config);
         console.log("no connect");
       }
 
-     client.query('SELECT "Name","gold" FROM "user"  WHERE "user_Id"=$1',[id] , function (err, result) {
+     client.query('SELECT "Name","gold" FROM "user"  WHERE "id"=$1',[id] , function (err, result) {
         if (err) {
           console.Log(err);
         };
@@ -36,6 +36,6 @@ var client = new pg.Client(config);
 });
 
 
-  
+
 
 module.exports = router;
