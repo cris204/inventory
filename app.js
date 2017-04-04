@@ -23,6 +23,7 @@ var config = {
 
 var app = express();
 
+
 var client = new pg.Client(config);
 
 
@@ -46,6 +47,8 @@ app.use('/inventory', inventory)
 app.use('/purchases', purchases);
 
 // catch 404 and forward to error handler
+
+
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
